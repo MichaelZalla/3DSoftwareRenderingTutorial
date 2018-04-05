@@ -18,5 +18,10 @@ public class Main
 		
 		Display display = new Display(800, 600, "Good news, everyone!");
 
+		while(true)
+		{
+			display.SwapBuffers();
+		}
+
 	}
 }
