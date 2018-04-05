@@ -10,18 +10,34 @@
 package com.michaelzalla.app;
 
 import com.michaelzalla.app.Display;
+import com.michaelzalla.app.Stars3D;;
 
-public class Main
-{
-	public static void main(String[] args)
-	{
+public class Main {
+	
+	public static void main(String[] args) {
 		
 		Display display = new Display(800, 600, "Good news, everyone!");
 
-		while(true)
-		{
+		Bitmap target = display.GetFrameBuffer();
+
+		Stars3D stars = new Stars3D(1800, 48.0f, 6.0f);
+
+		long previousTime = System.nanoTime();
+
+		while (true) {
+	
+			long currentTime = System.nanoTime();
+
+			float timeDelta = (float)((currentTime - previousTime) / 1000000000.0);
+
+			stars.UpdateAndRender(target, timeDelta);
+
 			display.SwapBuffers();
+
+			previousTime = currentTime;
+
 		}
 
 	}
+
 }
