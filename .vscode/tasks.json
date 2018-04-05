@@ -25,7 +25,7 @@
 		{
 			"label": "run",
 			"type": "shell",
-			"command": "mvn exec:java -D\"exec.mainClass\"=\"com.michaelzalla.app.Main\"",
+			"command": "mvn exec:java -e -D\"exec.mainClass\"=\"com.michaelzalla.app.Main\"",
 			"problemMatcher": []
 		},
 		{

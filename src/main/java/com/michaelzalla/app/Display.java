@@ -16,7 +16,7 @@ public class Display extends Canvas
 	static final long serialVersionUID = 0;
 	
 	private final JFrame _frame;
-	private final Bitmap _frameBuffer;
+	private final RenderContext _frameBuffer;
 	
 	private final BufferedImage _displayImage;
 	private final byte[] _displayComponents;
@@ -29,7 +29,7 @@ public class Display extends Canvas
 		
 		Dimension size = new Dimension(width, height);
 
-		this._frameBuffer = new Bitmap(width, height);
+		this._frameBuffer = new RenderContext(width, height);
 
 		this._displayImage = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
 
@@ -65,7 +65,7 @@ public class Display extends Canvas
 
 	}
 
-	public Bitmap GetFrameBuffer()
+	public RenderContext GetFrameBuffer()
 	{
 		return this._frameBuffer;
 	}
