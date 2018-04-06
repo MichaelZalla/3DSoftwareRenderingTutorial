@@ -11,7 +11,6 @@ package com.michaelzalla.app;
 
 import com.michaelzalla.app.Display;
 import com.michaelzalla.app.ScanBufferBitmap;
-import com.michaelzalla.app.Stars3D;
 
 public class Main {
 	
@@ -21,11 +20,17 @@ public class Main {
 
 		ScanBufferBitmap target = display.GetFrameBuffer();
 
-		Stars3D stars = new Stars3D(1800, 48.0f, 6.0f);
-
 		Vertex minYVert = new Vertex(-1, -1, 0);
 		Vertex midYVert = new Vertex(0, 1, 0);
 		Vertex maxYVert = new Vertex(1, -1, 0);
+
+		Matrix4f projection = new Matrix4f().InitPerspective(
+			(float)Math.toRadians(70.0f),
+			(float)target.GetWidth()/(float)target.GetHeight(),
+			0.1f,
+			1000.0f);
+
+		float rotationCounter = 0.0f;
 
 		long previousTime = System.nanoTime();
 
@@ -35,15 +40,23 @@ public class Main {
 
 			float timeDelta = (float)((currentTime - previousTime) / 1000000000.0);
 
-			// stars.UpdateAndRender(target, timeDelta);
+			previousTime = currentTime;
 
+			rotationCounter += timeDelta;
+
+			Matrix4f translation = new Matrix4f().InitTranslation(0.0f, 0.0f, 3.0f);
+			Matrix4f rotation = new Matrix4f().InitRotation(0.0f, rotationCounter, 0.0f);
+			Matrix4f transform = projection.Mul(translation.Mul(rotation));
+			
 			target.Clear((byte)0x00);
 
-			target.FillTriangle(maxYVert, midYVert, minYVert);
+			target.FillTriangle(
+				maxYVert.Transform(transform),
+				midYVert.Transform(transform),
+				minYVert.Transform(transform)
+			);
 
 			display.SwapBuffers();
-
-			previousTime = currentTime;
 
 		}
 	
