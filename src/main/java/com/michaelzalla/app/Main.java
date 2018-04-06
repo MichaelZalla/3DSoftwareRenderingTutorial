@@ -23,9 +23,9 @@ public class Main {
 
 		Stars3D stars = new Stars3D(1800, 48.0f, 6.0f);
 
-		Vertex minYVert = new Vertex(100, 100);
-		Vertex midYVert = new Vertex(0, 200);
-		Vertex maxYVert = new Vertex(80, 300);
+		Vertex minYVert = new Vertex(-1, -1, 0);
+		Vertex midYVert = new Vertex(0, 1, 0);
+		Vertex maxYVert = new Vertex(1, -1, 0);
 
 		long previousTime = System.nanoTime();
 

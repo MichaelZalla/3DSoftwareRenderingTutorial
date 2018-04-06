@@ -50,25 +50,39 @@ public class ScanBufferBitmap extends Bitmap
 
 	public void FillTriangle(Vertex v1, Vertex v2, Vertex v3)
 	{
-		Vertex minYVert = v1;
-		Vertex midYVert = v2;
-		Vertex maxYVert = v3;
+		
+		Matrix4f screenSpaceTransform = new Matrix4f()
+			.InitScreenSpaceTransform(
+				GetWidth() / 2, GetHeight() / 2
+			);
+		
+		Vertex minYVert = v1
+			.Transform(screenSpaceTransform)
+			.PerspectiveDivide();
 
-		if(maxYVert.getY() < midYVert.getY())
+		Vertex midYVert = v2
+			.Transform(screenSpaceTransform)
+			.PerspectiveDivide();
+		
+		Vertex maxYVert = v3
+			.Transform(screenSpaceTransform)
+			.PerspectiveDivide();
+
+		if(maxYVert.GetY() < midYVert.GetY())
 		{
 			Vertex temp = maxYVert;
 			maxYVert = midYVert;
 			midYVert = temp;
 		}
 
-		if(midYVert.getY() < minYVert.getY())
+		if(midYVert.GetY() < minYVert.GetY())
 		{
 			Vertex temp = midYVert;
 			midYVert = minYVert;
 			minYVert = temp;
 		}
 
-		if(maxYVert.getY() < midYVert.getY())
+		if(maxYVert.GetY() < midYVert.GetY())
 		{
 			Vertex temp = maxYVert;
 			maxYVert = midYVert;
@@ -82,7 +96,7 @@ public class ScanBufferBitmap extends Bitmap
 
 		this.ScanConvertTriangle(minYVert, midYVert, maxYVert, handedness);
 
-		this.FillShape((int)minYVert.getY(), (int)maxYVert.getY());
+		this.FillShape((int)minYVert.GetY(), (int)maxYVert.GetY());
 	}
 
 	public void ScanConvertTriangle(
@@ -101,11 +115,11 @@ public class ScanBufferBitmap extends Bitmap
 		Vertex maxYVert,
 		int whichSide)
 	{
-		int yStart = (int)minYVert.getY();
-		int yEnd = (int)maxYVert.getY();
+		int yStart = (int)minYVert.GetY();
+		int yEnd = (int)maxYVert.GetY();
 		
-		int xStart = (int)minYVert.getX();
-		int xEnd = (int)maxYVert.getX();
+		int xStart = (int)minYVert.GetX();
+		int xEnd = (int)maxYVert.GetX();
 
 		int yDist = yEnd - yStart;
 		int xDist = xEnd - xStart;
