@@ -17,7 +17,7 @@ public class Display extends Canvas
 	
 	private final JFrame _frame;
 	
-	private final RenderingContext _frameBuffer;
+	private final ScanBufferBitmap _frameBuffer;
 	
 	private final BufferedImage _displayImage;
 	private final byte[] _displayComponents;
@@ -29,14 +29,14 @@ public class Display extends Canvas
 		
 		Dimension size = new Dimension(width, height);
 
-		// Instantiate a new RenderingContext (Bitmap) to holds a bitmap byte array
+		// Instantiate a new ScanBufferBitmap (Bitmap) to holds a bitmap byte array
 		// as well as a scan buffer for rendering; we set the dimensions of the
 		// bitmap buffer (and by extension the scan buffer) at instantiation;
 
 		// @NOTE(mzalla) This is the original frame buffer that will be copied
 		// by our drawing context to the display buffer;
 
-		this._frameBuffer = new RenderingContext(width, height);
+		this._frameBuffer = new ScanBufferBitmap(width, height);
 
 		// In order to pass our image data to the graphics drawing context, we
 		// have to provide it in a contextually clear format (i.e.,
@@ -108,7 +108,7 @@ public class Display extends Canvas
 
 	}
 
-	public RenderingContext GetFrameBuffer()
+	public ScanBufferBitmap GetFrameBuffer()
 	{
 		// Expose the frame buffer to clients who wish to write data to it;
 

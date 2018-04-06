@@ -10,7 +10,7 @@
 package com.michaelzalla.app;
 
 import com.michaelzalla.app.Display;
-import com.michaelzalla.app.RenderContext;
+import com.michaelzalla.app.ScanBufferBitmap;
 import com.michaelzalla.app.Stars3D;
 
 public class Main {
@@ -19,7 +19,7 @@ public class Main {
 		
 		Display display = new Display(800, 600, "Good news, everyone!");
 
-		RenderContext target = display.GetFrameBuffer();
+		ScanBufferBitmap target = display.GetFrameBuffer();
 
 		Stars3D stars = new Stars3D(1800, 48.0f, 6.0f);
 

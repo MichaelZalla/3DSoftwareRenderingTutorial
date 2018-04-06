@@ -1,17 +1,29 @@
 package com.michaelzalla.app;
 
-public class RenderContext extends Bitmap
+/**
+ * Extend the Bitmap class to additionally hold a scan buffer, to quickly draw
+ * filled triangles to the buffer;
+ */
+public class ScanBufferBitmap extends Bitmap
 {
-	
+
 	private final int[] _scanBuffer;
 
-	public RenderContext(int width, int height)
+	public ScanBufferBitmap(int width, int height)
 	{
 		super(width, height);
+
+		// The scan buffer will hold 2 coordinates (xMin and xMax for each
+		// possibly y-coordinate; note that this implementation restricts us to
+		// only expressing convex shapes in the scan buffer; 
 
 		this._scanBuffer = new int[height * 2];
 	}
 
+	/**
+	 * Marks the min and max x-coordinates for a given y position in the scan
+	 * buffer;
+	 */
 	public void DrawScanBuffer(int yCoord, int xMin, int xMax)
 	{
 		this._scanBuffer[yCoord * 2    ] = xMin;
