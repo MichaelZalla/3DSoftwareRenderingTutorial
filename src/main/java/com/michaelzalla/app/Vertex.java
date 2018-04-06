@@ -31,5 +31,18 @@ public class Vertex
 	{
 		this._y = y;
 	}
-	
+
+	public float getTriangleAreaTimesTwo(Vertex b, Vertex c)
+	{
+		float x1 = b.getX() - this._x;
+		float y1 = b.getY() - this._y;
+		
+		float x2 = c.getX() - this._x;
+		float y2 = c.getY() - this._y;
+
+		// Calculate the cross-product of the two vectors;
+
+		return (x1 * y2 - x2 * y1);
+	}
+
 }

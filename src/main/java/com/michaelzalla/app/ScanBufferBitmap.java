@@ -48,6 +48,43 @@ public class ScanBufferBitmap extends Bitmap
 		}
 	}
 
+	public void FillTriangle(Vertex v1, Vertex v2, Vertex v3)
+	{
+		Vertex minYVert = v1;
+		Vertex midYVert = v2;
+		Vertex maxYVert = v3;
+
+		if(maxYVert.getY() < midYVert.getY())
+		{
+			Vertex temp = maxYVert;
+			maxYVert = midYVert;
+			midYVert = temp;
+		}
+
+		if(midYVert.getY() < minYVert.getY())
+		{
+			Vertex temp = midYVert;
+			midYVert = minYVert;
+			minYVert = temp;
+		}
+
+		if(maxYVert.getY() < midYVert.getY())
+		{
+			Vertex temp = maxYVert;
+			maxYVert = midYVert;
+			midYVert = temp;
+		}
+
+		float area = minYVert.getTriangleAreaTimesTwo(maxYVert, midYVert);
+
+		int handedness = (area >= 0) ?
+			1 : 0;
+
+		this.ScanConvertTriangle(minYVert, midYVert, maxYVert, handedness);
+
+		this.FillShape((int)minYVert.getY(), (int)maxYVert.getY());
+	}
+
 	public void ScanConvertTriangle(
 		Vertex minYVert,
 		Vertex midYVert,
